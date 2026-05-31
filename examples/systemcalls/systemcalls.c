@@ -1,4 +1,11 @@
 #include "systemcalls.h"
+#include <unistd.h>
+#include <sys/wait.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <fcntl.h>
+#include <sys/stat.h>
 
 /**
  * @param cmd the command to execute with system()
@@ -16,7 +23,11 @@ bool do_system(const char *cmd)
  *   and return a boolean true if the system() call completed with success
  *   or false() if it returned a failure
 */
-
+	int cmdStatus = system(cmd);
+	
+	if (cmdStatus != 0)
+		return false;
+	
     return true;
 }
 
@@ -58,6 +69,44 @@ bool do_exec(int count, ...)
  *   as second argument to the execv() command.
  *
 */
+	fflush(stdout);
+	pid_t id = fork();
+	
+	// Error in fork()
+	if (id < 0)
+	{
+		printf("Error: Fork Failed\n");
+		return false;
+	}
+	
+	// child process
+	else if (id == 0)
+	{
+		execv(command[0], command);
+		
+		// Only executes if execv returns an error
+		printf("Error: Execv failed to execute successfully.\n");
+		return false;
+	}
+	
+	// parent process
+	else
+	{
+		int status;
+		
+		wait(&status);
+		
+		if(status != 0)
+		{
+			printf("Error: Child did not exit properly. Code: %d\n", status);
+			return false;
+		}
+		
+		else
+		{
+			
+		}
+	}
 
     va_end(args);
 
@@ -92,6 +141,57 @@ bool do_exec_redirect(const char *outputfile, int count, ...)
  *   The rest of the behaviour is same as do_exec()
  *
 */
+	int fd = open(outputfile, O_WRONLY|O_TRUNC|O_CREAT, 0644);
+	
+	if (fd < 0)
+	{
+		printf("Error: Unable to open file %s.\n", outputfile);
+		return false;
+	}
+
+	fflush(stdout);
+	pid_t id = fork();
+	
+	// Error in fork()
+	if (id < 0)
+	{
+		printf("Error: Fork Failed\n");
+		return false;
+	}
+	
+	// child process
+	else if (id == 0)
+	{
+    		
+    		if (dup2(fd, 1) < 0)
+    		{
+    			printf("Error: unable to create new file descriptor.\n");
+    			return false;
+    		}
+    		
+    		close(fd);
+    		
+		execv(command[0], command);
+		
+		// Only executes if execv returns an error
+		printf("Error: Execv failed to execute successfully.\n");
+		return false;
+	}
+	
+	// parent process
+	else
+	{
+		int status;
+		close(fd);
+		
+		wait(&status);
+		
+		if(!WIFEXITED(status))
+		{
+			printf("Error: Child did not exit properly. Code: %d\n", WEXITSTATUS(status));
+			return false;
+		}
+	}
 
     va_end(args);
 
