@@ -86,7 +86,7 @@ bool do_exec(int count, ...)
 		
 		// Only executes if execv returns an error
 		printf("Error: Execv failed to execute successfully.\n");
-		return false;
+		exit(1);
 	}
 	
 	// parent process
