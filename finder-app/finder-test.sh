@@ -5,6 +5,8 @@
 set -e
 set -u
 
+SYSROOT=/home/rallen8/arm-cross-compiler/arm-gnu-toolchain-13.3.rel1-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-gcc/aarch64-none-linux-gnu/libc	
+export PATH=$PATH:/home/rallen8/arm-cross-compiler/arm-gnu-toolchain-13.3.rel1-x86_64-aarch64-none-linux-gnu/bin
 NUMFILES=10
 WRITESTR=AELD_IS_FUN
 WRITEDIR=/tmp/aeld-data
@@ -49,8 +51,6 @@ then
 	fi
 fi
 #echo "Removing the old writer utility and compiling as a native application"
-#make clean
-
 
 for i in $( seq 1 $NUMFILES)
 do

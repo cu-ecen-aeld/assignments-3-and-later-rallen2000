@@ -43,6 +43,7 @@ if [ ! -e ${OUTDIR}/linux-stable/arch/${ARCH}/boot/Image ]; then
     make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} mrproper	# "Deep clean" the kernel build tree
     make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} defconfig	# Configure for "virt" arm
     make -j4 ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} all	# Kernel image for booting with QEMU
+    make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} modules	# Build kernel modules
     make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} dtbs	# Device tree
     
 fi
@@ -117,6 +118,7 @@ make CROSS_COMPILE=${CROSS_COMPILE}
 mkdir -p ${OUTDIR}/rootfs/home/conf
 
 cp /home/rallen8/assignment-3-rallen2000/finder-app/writer ${OUTDIR}/rootfs/home/
+cp /home/rallen8/assignment-3-rallen2000/finder-app/writer.c ${OUTDIR}/rootfs/home/
 cp /home/rallen8/assignment-3-rallen2000/finder-app/finder.sh ${OUTDIR}/rootfs/home/
 cp /home/rallen8/assignment-3-rallen2000/finder-app/writer.sh ${OUTDIR}/rootfs/home/
 cp /home/rallen8/assignment-3-rallen2000/finder-app/conf/username.txt ${OUTDIR}/rootfs/home/conf
