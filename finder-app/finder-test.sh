@@ -53,8 +53,8 @@ fi
 #echo "Removing the old writer utility and compiling as a native application"
 
 
-make  clean
-make  writer CROSS_COMPILE=aarch64-none-linux-gnu-
+make clean
+make writer
 
 for i in $( seq 1 $NUMFILES)
 do
