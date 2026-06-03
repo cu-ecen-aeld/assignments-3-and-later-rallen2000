@@ -52,6 +52,12 @@ then
 fi
 #echo "Removing the old writer utility and compiling as a native application"
 
+if [ ! -f "./writer" ]; then
+make  clean
+make  writer CROSS_COMPILE=aarch64-none-linux-gnu-
+
+fi
+
 for i in $( seq 1 $NUMFILES)
 do
 	./writer.sh "$WRITEDIR/${username}$i.txt" "$WRITESTR"
