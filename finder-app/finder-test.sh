@@ -10,7 +10,7 @@ export CC=aarch64-none-linux-gnu-
 
 NUMFILES=10
 WRITESTR=AELD_IS_FUN
-WRITEDIR=/tmp/aeld
+WRITEDIR=/tmp
 username=$(cat /etc/finder-app/conf/username.txt)
 
 if [ $# -lt 3 ]
@@ -25,7 +25,7 @@ then
 else
 	NUMFILES=$1
 	WRITESTR=$2
-	WRITEDIR=/tmp/$3
+	WRITEDIR=/$3
 fi
 
 MATCHSTR="The number of files are ${NUMFILES} and the number of matching lines are ${NUMFILES}"
@@ -63,7 +63,7 @@ done
 OUTPUTSTRING=$(finder.sh "$WRITEDIR" "$WRITESTR")
 
 # remove temporary directories
-rm -rf /tmp/aeld-data
+#rm -rf /tmp/aeld-data
 
 set +e
 echo ${OUTPUTSTRING} | grep "${MATCHSTR}"
