@@ -10,7 +10,7 @@ export CC=aarch64-none-linux-gnu-
 
 NUMFILES=10
 WRITESTR=AELD_IS_FUN
-WRITEDIR=/tmp
+WRITEDIR=/tmp/aeld-data
 username=$(cat /etc/finder-app/conf/username.txt)
 
 if [ $# -lt 3 ]
@@ -25,14 +25,14 @@ then
 else
 	NUMFILES=$1
 	WRITESTR=$2
-	WRITEDIR=/$3
+	WRITEDIR=/tmp/aeld-data/$3
 fi
 
 MATCHSTR="The number of files are ${NUMFILES} and the number of matching lines are ${NUMFILES}"
 
 echo "Writing ${NUMFILES} files containing string ${WRITESTR} to ${WRITEDIR}"
 
-rm -rf ${WRITEDIR}/*
+rm -rf "${WRITEDIR}"
 
 # create $WRITEDIR if not assignment1
 assignment=`cat /etc/finder-app/conf/assignment.txt`
@@ -57,13 +57,15 @@ fi
 
 for i in $( seq 1 $NUMFILES)
 do
-	writer.sh "$WRITEDIR/assignment4-result.txt" "$WRITESTR"
+	writer "$WRITEDIR/$(username)$i.txt" "$WRITESTR"
 done
 
 OUTPUTSTRING=$(finder.sh "$WRITEDIR" "$WRITESTR")
 
+echo "${OUTPUTSTRING}" > /tmp/assignment4-result.txt
+
 # remove temporary directories
-#rm -rf /tmp/aeld-data
+rm -rf /tmp/aeld-data
 
 set +e
 echo ${OUTPUTSTRING} | grep "${MATCHSTR}"
