@@ -18,7 +18,11 @@ jobs:
             run: ./unit-test.sh
 =======
     full-test:
+<<<<<<< HEAD
         container: cuaesd/aesd-autotest:24-assignment4-buildroot
+=======
+        container: cuaesd/aesd-autotest:24-assignment5
+>>>>>>> assignments-base/assignment5
         runs-on: self-hosted
         timeout-minutes: 120
         steps:

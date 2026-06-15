@@ -7,18 +7,25 @@
  * It should be returned by your thread so it can be freed by
  * the joiner thread.
  */
+<<<<<<< HEAD
 struct thread_data {
+=======
+struct thread_data{
+>>>>>>> assignments-base/assignment5
     /*
      * TODO: add other values your thread will need to manage
      * into this structure, use this structure to communicate
      * between the start_thread_obtaining_mutex function and
      * your thread implementation.
      */
+<<<<<<< HEAD
      
      int wait_to_obtain_ms;
      int wait_to_release_ms;
      pthread_mutex_t* mutex;
      pthread_t* thread;
+=======
+>>>>>>> assignments-base/assignment5
 
     /**
      * Set to true if the thread completed with success, false
