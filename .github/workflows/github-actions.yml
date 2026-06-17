@@ -6,7 +6,6 @@ on:
         branches:
             - '*'
 jobs:
-<<<<<<< HEAD
     unit-test:
         container: cuaesd/aesd-autotest:24-unit-test
         runs-on: self-hosted
@@ -16,13 +15,8 @@ jobs:
             run : git submodule update --init --recursive
           - name: Run unit test
             run: ./unit-test.sh
-=======
     full-test:
-<<<<<<< HEAD
-        container: cuaesd/aesd-autotest:24-assignment4-buildroot
-=======
         container: cuaesd/aesd-autotest:24-assignment5
->>>>>>> assignments-base/assignment5
         runs-on: self-hosted
         timeout-minutes: 120
         steps:
@@ -40,4 +34,3 @@ jobs:
             if: always()
             run: |
               ssh-add -D
->>>>>>> buildroot-assignments-base/master
