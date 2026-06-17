@@ -2,10 +2,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
-<<<<<<< HEAD
 #include <time.h>
-=======
->>>>>>> assignments-base/assignment5
 
 // Optional: use these functions to add debug or error prints to your application
 #define DEBUG_LOG(msg,...)
@@ -17,7 +14,6 @@ void* threadfunc(void* thread_param)
 
     // TODO: wait, obtain mutex, wait, release mutex as described by thread_data structure
     // hint: use a cast like the one below to obtain thread arguments from your parameter
-<<<<<<< HEAD
     
     struct thread_data* thread_func_args = (struct thread_data*)thread_param;
     
@@ -42,9 +38,6 @@ void* threadfunc(void* thread_param)
     }
     
     thread_func_args->thread_complete_success = true;
-=======
-    //struct thread_data* thread_func_args = (struct thread_data *) thread_param;
->>>>>>> assignments-base/assignment5
     return thread_param;
 }
 
@@ -59,7 +52,6 @@ bool start_thread_obtaining_mutex(pthread_t *thread, pthread_mutex_t *mutex,int 
      *
      * See implementation details in threading.h file comment block
      */
-<<<<<<< HEAD
      
      struct thread_data* initData = (struct thread_data*)malloc(sizeof(struct thread_data));
      
@@ -97,8 +89,5 @@ bool start_thread_obtaining_mutex(pthread_t *thread, pthread_mutex_t *mutex,int 
      {
      	return true;
      }
-=======
-    return false;
->>>>>>> assignments-base/assignment5
 }
 
